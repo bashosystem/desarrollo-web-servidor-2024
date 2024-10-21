@@ -72,27 +72,299 @@ aleatorio tiene 1,2 o 3 digitos
         $digitos = "error";
     }
 
-    echo "<p>El numero tiene $digitos digitos</p>";
-    #FORMA 2
-    $digtos_texto;
-    if($digitos ==1) & digitos_texto = digito;
-     echo"<p>el numero $numero_aleatorio tiene $digitos"
+ 
+ //Forma 2
+ if ($numero_aleatorio < 10):
+    echo "<p>$numero_aleatorio tiene 1 digito</p>";
+elseif ($numero_aleatorio > 9 and $numero_aleatorio <100):
+    echo "<p>$numero_aleatorio tiene 2 digitos</p>";
+else:
+    echo "<p>$numero_aleatorio tiene 3 digitos</p>";
+endif:
 
-    #FORMA 3
-    if ($numero_aleatorio>= 0 && $numero_aleatorio <= 9) :
-        echo "El número tiene 1 dígito.";
-     elseif ($numero_aleatorio >= 10 && $numero_aleatorio <= 99): 
-        echo "El número tiene 2 dígitos.";
-    elseif ($numero_aleatorio >= 100 && $numero_aleatorio <= 999): 
-        echo "El número tiene 3 dígitos.";
-    else: 
-        echo "El número tiene más de 3 dígitos o es negativo.";
-    endif;
 
+
+    /*
+con una estructura switch cambiar la cariable dia a español
+reescribir wl swith de los dias de clase con la viable en español
+
+
+*/
+
+    //Ejercicios 2 :  MOSTRAR ES UNA LISTA LOS NUMEROS MULTIPLOS DE 3 USANDO 
+    //WHILE E
+    <ul>
+    <?php
+        $i = 1;
+        while ($i<=100):
+            if($i % 3==0):
+                echo "<li>$i</li>";
+            endif;
+        endwhile;
+    ?>
+    </ul>
+
+    <h3>Ejercicios 3</h3>
+    <p>calcular la suma de los numeros pares entre 1 y 20</p>
+    <?php
+    $i = 1;
+    $suma =0;
+    while($i<=20){
+        if($i %2 <=20){
+            $suma += $i;
+        }
+        i++;
+    }
+    echo "<p>SOlucion : la suma es $suma </p>";
+    ?>
+
+
+<h3>Ejercicio 4 </h3>
+<p>calcular el factorial de 6 con while</p>
+<?php
+// 3! 1x2x3 =  6;
+// 4! 1x2x3x = 24;
+$factorial =6;
+$resultado = 1;
+$i = 1;
+while ($i <= $factorial){
+    $resultado *= $i;  #resultado =  $resultado * $i
+    i++;
+}
+echo "<p>SOLUCION: el factorial de $factorial es $resultado </p>"
+?>
+
+
+<h1>Lista con FOR alternativa</h1>
+<?php
+for($i = 1; $i<=10; $i++){
+    echo "<li>$i</li>";
+endfor;    
+}
+echo "</ul>";
+
+
+?>
+<h1>lista con for y break cursed</h1>
+<?php
+
+echo "<ul>";  
+
+for( ; ; ){
+    if($i >10){
+
+    }
+  }
+
+  <h3>ejercicio 5</3>
+
+  <p>muestra por pantalla los 50 primeros numeros primos</>
+  <?php
+  /**
+   * 4 % 2 =0;  4 no es primo
+   * 4 % 3 =1;
+   * 
+   * 5 % 2 =1;  5 si es primo
+   * 5 % 3 =2;
+   * 5 % 4 =1
+   * 
+   * bucle de 2 a N-1 
+   */
+
+   $numero =2;
+   $esprimo = true;
+    for($i = 2; $i < $numero; $i++){
+            if($numero % $si == 0){
+            // no es primo
+            $esprimo = false;
+            break;
+        }
+    }
+    var_dump ($esprimo);
+
+    //bucle desde 2 hasta infinito y mas alla
+    $numero=2;
+    $numerosPrimos = 1;
+    echo "<ol>";
+
+    while($numerosPrimos <50){
+        $esprimo = true;
+        for($i 2; $i <$numero ; $i++){
+            if($numero % $i ==0){
+                $esprimo = false ;
+            }
+
+        }
+        if($esprimo){
+            $numerosPrimos ++;
+            echo "<li>$numeros</li>"
+        }
+        $numeros++;
+    }
+    echo"</ol>";
+
+    //N*N -> 0(N^2)
+
+    //var_dump($esPrimo);
+
+/**
+ * Todos los arrays en php son asociados , como
+ * los Map de java
+ * 
+ * Tiene pares clave-valor
+ * 
+ * 
+ */
+<?php
+ $numeros =[5,10,9,6,7,4];
+ $numeros = array(6,10,9,4,3);
+ print_r($numeros);
+
+ echo "<b></b>";
+
+ $animales = ["perro","gato","ornitorrinco","Suricato","capibara"];
+ $animales =[
+    "A01"=> "Perro"
+    "A02"=> "Gato",
+    "A03"=> "Ornitorrinco",
+    "A04"=> "Suricato",
+    "A05"=> "Capibara",
+ ];
+ print_r($animales) =[
+ 1.4=> "Perro";
+ true => "Gato";
+false => "Ornitorrinco";
+2e2 => "Suricato";
+"A05" => "Capibara";
+];
+ ?>
+ <?php
+
+ $asignaturaas ={
+ "ejercicio1 desarollo web en entorno servidor" =>"alejandra", 
+ "desarrollo web en entorno cliente" => "jose miguel",
+ "diseño de interfaces web" => "jose miguel",
+ "despligue de aplicaciones" => "jaime",
+ "empresa e iniciativa emprendedora"=> "convalidado",
+ "ingles"=>"virnigia"
+    ];
+    ?>
+
+    <table>
+        <thead> 
+            <tr>
+                <th>Asignatura</th>
+                <th>Profesor</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            kshort($asinaturas);
+            //asort($asignaturas);ordena al revez
+            //sort($asignaturas); los ordena por m
+            foreach($asignaturas as $asignatura =>$profesor) {
+                echo "<tr>";
+                echo "<td>$asignaturas</td>" ;
+                echo "<td>$profesor</td>";   
+                echo "</tr>";
+            }
+            ?>
+        </tbody>
+    </table>
+
+            <?php
+            //EJERCICIO 2
+            
+            $estudiantes = [
+                "francisco"=>3,
+                "Daniel"=>5,
+                "aurora"=>10,
+                "ismael"=>0,
+                "luis"=>7,
+                "samuel"=>9,
+                "juanjo"=>2,
+                "vicente"=>1,
 
  
+            ]    
+            ?>
+            <tbale>
+                <thead>
+                    <tr>
+                        <th>$estudiante</th>
+                        <th>$Nota</th>       
+                    </tr>
+</thead>
+    </tbale>
+        <tbody>
+            <?php
+                //if($nota <5)echo"<tr class='suspenso'>";
+                //else echo "<tr class='aprobado'>";
+            foreach ($estudiantes as $estudiante =>$nota){
+                    ($nota <5)echo"<tr class='suspenso'>";//crea una etiqueta tr
+                    else echo "<tr class='aprobado'>";
+                    <td><?php echo $estudiante ?></td>
+                    <td><?php echo $nota ?></td>
+                    <td>
+                        <?php
+                        if($nota<5)echo"suspenso";
+                        elseif($nota >=5)echo "Aprobado";
+                        ?>
+                    </td>                                           
+                
+           <?php } ?>
+        </tbody>
+    </table>
+    <?php
+    /**
+     * INSERTAR DOS NUEVOS ESTUDIANTES , CON NOTAS ALEATORIAS ENTRE 0 Y 10
+     * 
+     * BORRAR UN ESTUDIANTE (EL QUE PEOR OS CAIGA) POR LA CLAVE
+     * 
+     * MOSTRAR EN UNA NUEVA TABLA TODO ORDENADO POR LOS NOMBRES EN ORDEN 
+     * ALFABETICAMENTE INVERSO
+     * 
+     * MOSTRAR EN UNA NUEVA TABLA  TODO ORDENADO POR LA NOTA DE 10 A 0(ORDEN INVERSO)
+     */
 
+
+     $estudiantes ["Paula"]=rand(0,10);
+     $estudiantes ["Waulis"]=rand(0,10);
+
+
+     unset($estudiantes["Vicente"]);
+
+     krsort($estudiantes);
+
+     <table> 
+                <caption>Estudiantes ordenados por el nombre al revés</caption> 
+                <thead>
+                <tr>
+                    <th>Estuadiante</th>
+                    <th>nota</th>
+                    <th>resultado</th>
+                </tr>
+            </thead>
+        </tbody>
+        <tbody>
+            <?php
+            arsort($estudiantes)
+            foreach ($estudiantes as $estudiante =>$nota){
+                    ($nota <5)echo"<tr class='suspenso'>";//crea una etiqueta tr
+                    else echo "<tr class='aprobado'>";
+                    <td><?php echo $estudiante ?></td>
+                    <td><?php echo $nota ?></td>
+                    <td>
+                        <?php
+                        if($nota<5)echo"suspenso";
+                        elseif($nota >=5)echo "Aprobado";
+                        ?>
+                    </td>                                           
+                
+           <?php } ?>
+        </tbody>
+     </table>
     ?>
-    
+
 </body>
 </html>

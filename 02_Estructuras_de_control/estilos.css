@@ -6,3 +6,9 @@ table{
 th ,th{
     border: 2px solid palevioletred;
 }
+caption{
+    border: 2px solid pink;
+}
+.aprobado{
+    
+}
