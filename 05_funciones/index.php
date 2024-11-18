@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Index</title>
-    <link rel="stylesheet" type="text/css" href="estilos.css">
+    <link rel="stylesheet" type="text/css" href="./estilos.css">
 </head>
 <body>
     <table>
@@ -18,34 +18,34 @@
         <tbody>
             <tr>
                 <td>
-                    <a href="numeros.php">numeros.php</a>
+                    <a href="temperaturas.php">temperaturas.php</a>
                 </td>
                 <td>
-                    Ejercicios de comparaciones con números.
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <a href="fechas.php">fechas.php</a>
-                </td>
-                <td>
-                    Ejercicios de fechas con la función date().
+                    Ejercicio de temperaturas.
                 </td>
             </tr>
             <tr>
                 <td>
-                    <a href="ejercicios.php">ejercicios.php</a>
+                    <a href="edades.php">edades.php</a>
                 </td>
                 <td>
-                    Ejercicios.
+                    Ejercicio de edades.
                 </td>
             </tr>
             <tr>
                 <td>
-                    <a href="bucles.php">bucles.php</a>
+                    <a href="potencias.php">potencias.php</a>
                 </td>
                 <td>
-                    Ejercicios de bucles.
+                    Ejercicio de potencias.
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a href="economia.php">economia.php</a>
+                </td>
+                <td>
+                    Ejercicio de funciones de economía.
                 </td>
             </tr>
         </tbody>
