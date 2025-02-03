@@ -1,54 +1,69 @@
-<?php
-    error_reporting( E_ALL );
-    ini_set( "display_errors", 1 );
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Información del anime</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <?php
+        error_reporting(E_ALL);
+        ini_set("display_errors", 1);
+    ?>
+</head>
+<body>
+    <?php
+        $id = $_GET["id"];
+        $apiUrl = "https://api.jikan.moe/v4/anime/$id/full";
 
-    header("Content-Type: application/json");
-    include("conexion_pdo.php");
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_URL, $apiUrl);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        $respuesta = curl_exec($curl);
+        curl_close($curl);
 
-    $metodo = $_SERVER["REQUEST_METHOD"];
-    $entrada = json_decode(file_get_contents('php://input'), true);//coje todos los imput y ya nosotros escojemos cual queremos
-    /**
-     * $entrada["numero"] -> <input name = "numero">
-     */
+        $datos = json_decode($respuesta, true);
+        $anime = $datos["data"];
+    ?>
 
-    switch($metodo) {
-        case "GET":
-            manejarGet($_conexion);
-            break;
-        case "POST":
-            manejarPost($_conexion, $entrada);
-            break;
-        case "PUT":
-            echo json_encode(["mensaje" => "put"]);
-            break;
-        case "DELETE":
-            echo json_encode(["mensaje" => "delete"]);
-            break;
-        default:
-            echo json_encode(["mensaje" => "otro"]);
-            break;
-    }
+    <div class="container">
+        <h1><?php echo $anime["title"] ?></h1>
+        <img src="<?php echo $anime["images"]["jpg"]["image_url"]?>"><br>
+        <h2>Nota media: <?php echo $anime["score"] ?></h2><br>
+        <h2>Sinopsis:</h2>
+        <p><?php echo $anime["synopsis"]?></p><br>
+        <h2>Géneros:</h2>
+        <ul class="list-group">
+            <?php foreach($anime["genres"] as $genero) {  ?>
+                <li class="list-group-item"><?php echo $genero["name"]?></li>
+            <?php } ?>
+        </ul><br>
+        <h2>Relacionados:</h2>
+        <ul class="list-group">
+            <?php foreach($anime["relations"] as $relacionado) {
+                    foreach($relacionado["entry"] as $entrada) {
+                        if ($entrada["type"] == "anime") { ?>
+                            <li class="list-group-item">
+                                <a href="anime.php?id=<?php echo $entrada["mal_id"]?>">
+                                    <?php echo $entrada["name"]?>
+                                </a>    
+                            </li>
+                    <?php }
+                    }
+                } ?>
+        </ul><br>
+        <h2>Productores:</h2>
+        <ul class="list-group">
+            <?php foreach($anime["producers"] as $productor) {  ?>
+                <li class="list-group-item">
+                    <a href="productor.php?id=<?php echo $productor["mal_id"]?>">
+                        <?php echo $productor["name"]?>
+                    </a>
+                </li>
+            <?php } ?>
+        </ul><br>
+        <iframe width="500px" height="350px" src="<?php echo $anime["trailer"]["embed_url"]?>"></iframe>
 
-    function manejarGet($_conexion){
-        $sql = "SELECT * FROM fabricantes";
-        $stmt = $_conexion -> prepare($sql);
-        $stmt -> execute();
-        $resultado = $stmt -> fetchAll(PDO::FETCH_ASSOC); //Equivalencia al getResult de mysql
-        echo json_encode($resultado);
-    }
-
-    function manejarPost($_conexion, $entrada){
-        $sql = "INSERT INTO fabricantes (fabricante, pais) 
-            VALUES (:fabricante, :pais)";
-        $stmt = $_conexion -> prepare($sql);
-        $stmt -> execute([
-            "fabricante" => $entrada["fabricante"],
-            "pais" => $entrada["pais"]
-        ]);
-        if ($stmt) {
-            echo json_encode(["mensaje" => "El fabricante se ha insertado correctamente"]);
-        } else{
-            echo json_encode(["mensaje" => "Error al insertar el fabricante"]);
-        }
-    }
-?>
+    </div>
+    
+</body>
+</html>

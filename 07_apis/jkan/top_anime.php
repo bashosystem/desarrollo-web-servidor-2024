@@ -11,13 +11,20 @@
     ?>
 </head>
 <body>
-    
     <?php
-       $apiUrl = "https://api.jikan.moe/v4/top/anime";
-       if(isset($_GET["type"])){
-           $tipo = $_GET["tipo"];
-           $apiUrl = "https://api.jikan.moe/v4/top/anime?type=$tipo";
-       }
+        $apiUrl = "https://api.jikan.moe/v4/top/anime";
+        $page = isset($_GET["page"]) ? $_GET["page"] : 1;
+        $tipo = isset($_GET["type"]) ? $_GET["type"] : "";
+        
+        
+        if (isset($_GET["page"]) && isset($_GET["type"])) { 
+            $apiUrl = "https://api.jikan.moe/v4/top/anime?page=$page&type=$tipo";
+        } else if (isset($_GET["page"])) {
+            $apiUrl = "https://api.jikan.moe/v4/top/anime?page=$page";
+        } else if (isset($_GET["type"])) {
+            $apiUrl = "https://api.jikan.moe/v4/top/anime?type=$tipo";
+        }
+
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, $apiUrl);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
@@ -26,18 +33,21 @@
 
         $datos = json_decode($respuesta, true);
         $animes = $datos["data"];
+        $pagination = $datos["pagination"];
     ?>
-  <form action="top_anime.php" method="GET">
-                    <div class="input-name">
-                        <label>Filtrar por:</label><br><br>
-                        <input type="radio" name="radiogroup1" id="radioo" class="radio-button">
-                        <label for="ravi" class="serie">Serie</label>
-                        <input type="radio" name="radiogroup" id="radioo" class="radio-button">
-                        <label for="ravi1" class="pelicula">Pelicula</label>
-                        <input type="radio" name="radiogroup" id="radioo" class="radio-button">
-                        <label for="radio" class="Todos">Todos</label>
-                    </div>
-                <br>
+
+    <h2>Filtrar por:</h2>
+    <form action="" method="get">
+        <input class="form-check-input" type="radio" name="type" id="tv" value="tv">
+        <label class="form-check-label" for="tv">Serie</label><br>
+        <input class="form-check-input" type="radio" name="type" id="movie" value="movie">
+        <label class="form-check-label" for="movie">Película</label><br>
+        <input class="form-check-input" type="radio" name="type" id="" value="">
+        <label class="form-check-label" for="all">Todos</label><br><br>
+        <input class="btn btn-info" type="submit" value="Aplicar">
+    </form>
+    <br>
+
     <table class="table">
         <thead class="thead-dark">
             <tr>
@@ -65,5 +75,12 @@
                 <?php } ?>
         </tbody>
     </table>
+    <?php
+        if ($pagination["current_page"] > 1) { ?>
+            <a href="?page=<?php echo $page-1 ?>&type=<?php echo $tipo ?>">Anterior</a>
+        <?php }
+        if ($pagination["has_next_page"]) { ?>
+            <a href="?page=<?php echo $page+1 ?>&type=<?php echo $tipo ?>">Siguiente</a>
+        <?php } ?>
 </body>
 </html>
